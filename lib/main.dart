@@ -1,115 +1,380 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 
 void main() {
-  runApp(const MyApp());
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
+    statusBarColor: Colors.transparent,
+  ));
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    title: "UI Challenges",
+    home: UI4(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class UI4 extends StatefulWidget {
+  const UI4({Key? key}) : super(key: key);
+  @override
+  State<UI4> createState() => _UI4State();
+}
 
-  // This widget is the root of your application.
+class _UI4State extends State<UI4> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    double con1Ht = height * 0.1;
+    double con2Ht = height * 0.12;
+    double con3Ht = height * 0.4;
+    double con4Ht = height * 0.1;
+    double sbxHt = height * 0.017;
+    double h1Font = MediaQuery.of(context).size.height * 0.03;
+    double h2Font = MediaQuery.of(context).size.height * 0.017;
+    double h3Font = MediaQuery.of(context).size.height * 0.02;
+    getContainer(
+        String url, Icon ic, String s1, String s2, String s3, String s4) {
+      return Container(
+          height: con3Ht * 0.15,
+          child: Row(
+            children: [
+              Container(
+                child: CircleAvatar(
+                  radius: (con3Ht * 0.15) / 2.5,
+                  backgroundColor: Colors.grey,
+                  backgroundImage: AssetImage(url),
+                ),
+              ),
+              SizedBox(
+                width: sbxHt,
+              ),
+              Container(
+                padding: EdgeInsets.only(top: sbxHt / 2, bottom: sbxHt / 2),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      s1,
+                      style: TextStyle(
+                          fontSize: con3Ht * 0.04, fontWeight: FontWeight.bold),
+                    ),
+                    Text(s2,
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: con3Ht * 0.03,
+                            fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              ),
+              Expanded(child: SizedBox()),
+              Container(
+                padding: EdgeInsets.only(top: sbxHt / 2, bottom: sbxHt / 2),
+                width: con1Ht,
+                child: Container(
+                  alignment: Alignment.centerRight,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        s3,
+                        style: TextStyle(
+                            fontSize: con3Ht * 0.04,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Container(
+                        child: Row(
+                          children: [
+                            Expanded(child: SizedBox()),
+                            Icon(Icons.favorite,
+                                size: h2Font - 3, color: Colors.cyan),
+                            Text(
+                              s4,
+                              style: TextStyle(
+                                  fontSize: con3Ht * 0.03, color: Colors.cyan),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ));
+    }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+      body: Stack(
+        children: [
+          Container(
+            padding: EdgeInsets.only(left: h3Font + 10, right: h3Font + 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: con1Ht),
+                Container(
+                    height: con1Ht,
+                    decoration: BoxDecoration(),
+                    child: Row(
+                      children: [
+                        Container(
+                          child: CircleAvatar(
+                            radius: con1Ht * 0.4,
+                            backgroundImage: AssetImage('assets/img1.png'),
+                          ),
+                        ),
+                        SizedBox(
+                          width: sbxHt,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: sbxHt, bottom: sbxHt),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Good Morning",
+                                style: TextStyle(
+                                  fontSize: h3Font,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              Text(
+                                "Thomas K.",
+                                style: TextStyle(
+                                    fontSize: h3Font,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(child: SizedBox()),
+                        Container(
+                          width: con1Ht,
+                          alignment: Alignment.center,
+                          child: Container(
+                              decoration: BoxDecoration(
+                                boxShadow: <BoxShadow>[
+                                  BoxShadow(
+                                    color:
+                                        Colors.indigo.shade100.withOpacity(0.5),
+                                    offset: const Offset(
+                                      5.0,
+                                      5.0,
+                                    ),
+                                    blurRadius: 10.0,
+                                    spreadRadius: 2.0,
+                                  ),
+                                ],
+                              ),
+                              child: CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  child: Icon(
+                                    Icons.notifications_none,
+                                    color: Colors.grey,
+                                  ))),
+                        )
+                      ],
+                    )),
+                SizedBox(
+                  height: sbxHt,
+                ),
+                Container(
+                    height: con2Ht,
+                    padding: EdgeInsets.all(sbxHt + 5),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Colors.deepPurple.shade600,
+                    ),
+                    child: Row(
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Your balance",
+                              style: TextStyle(
+                                fontSize: h3Font,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              "\$42,976.02",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: h1Font,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        Expanded(child: SizedBox()),
+                        ElevatedButton.icon(
+                          icon: Icon(
+                            Icons.favorite,
+                            size: h2Font - 3,
+                          ),
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20))),
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.white),
+                            foregroundColor:
+                                MaterialStateProperty.all(Colors.cyan),
+                          ),
+                          onPressed: () {},
+                          label: const Text(
+                            "35,91%",
+                          ),
+                        ),
+                      ],
+                    )),
+                SizedBox(height: sbxHt * 2),
+                Container(
+                  padding: EdgeInsets.all(con3Ht * 0.08),
+                  height: con3Ht,
+                  width: width,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                        color: Colors.indigo.shade100.withOpacity(0.5),
+                        offset: const Offset(5.0, 5.0),
+                        blurRadius: 10.0,
+                        spreadRadius: 2.0,
+                      ),
+                    ],
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Your investments",
+                          style: TextStyle(
+                              fontSize: h2Font * 1.5,
+                              fontWeight: FontWeight.bold)),
+                      SizedBox(
+                        height: sbxHt,
+                      ),
+                      Container(
+                        height: con3Ht * 0.18,
+                        padding: EdgeInsets.all(sbxHt / 2),
+                        decoration: BoxDecoration(
+                            color: Colors.deepPurple.shade600.withOpacity(0.1),
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(con3Ht * 0.15))),
+                        child: Row(
+                          children: [
+                            Container(
+                              height: con3Ht,
+                              width: width * 0.37,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(width * 0.3))),
+                              alignment: Alignment.center,
+                              child: Text("Portfolio",
+                                  style: TextStyle(
+                                      color: Colors.deepPurple.shade600)),
+                            ),
+                            Expanded(
+                                child: Container(
+                              alignment: Alignment.center,
+                              child: Text("Pending"),
+                            ))
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: sbxHt),
+                      Expanded(
+                          child: Container(
+                        child: Column(
+                          children: [
+                            getContainer("assets/img2.png", Icon(Icons.bluetooth),
+                                "Bitcoin", "102 BTC", "\$35595,91", "13,81%"),
+                            SizedBox(height: sbxHt * 0.5),
+                            getContainer(
+                                "assets/img3.jpg",
+                                Icon(Icons.bluetooth),
+                                "Ethereum",
+                                "091 ETH",
+                                "\$1,922,01",
+                                "9.32%"),
+                            SizedBox(height: sbxHt * 0.5),
+                            getContainer(
+                                "assets/img4.jpg",
+                                Icon(Icons.bluetooth),
+                                "Chainlink",
+                                "92.11 LINK",
+                                "\$1,812,01",
+                                "29.32%")
+                          ],
+                        ),
+                      )),
+                    ],
+                  ),
+                ),
+                SizedBox(height: sbxHt * 1.3),
+                Container(
+                  padding: EdgeInsets.all(sbxHt),
+                  height: con4Ht,
+                  width: width,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                          color: Colors.indigo.shade100.withOpacity(0.5),
+                          offset: const Offset(5.0, 5.0),
+                          blurRadius: 20.0,
+                          spreadRadius: 2.0),
+                    ],
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        "Edit portfolio",
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: h2Font,
+                        ),
+                      ),
+                      VerticalDivider(color: Colors.grey.shade400),
+                      Text(
+                        " See all ",
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: h2Font,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+          ),
+          Positioned(
+            bottom: 0,
+            child: Container(
+              width: width,
+              height: con1Ht / 1.5,
+              color: Colors.white,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Icon(Icons.crop_square, color: Colors.black),
+                  Icon(Icons.search, color: Colors.grey),
+                  Icon(Icons.access_time_sharp, color: Colors.grey),
+                  Icon(Icons.person_outline_outlined, color: Colors.grey),
+                ],
+              ),
             ),
-          ],
-        ),
+          )
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
